@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic-settings
+python-multipart
+pytest
+httpx
+pypdf
+sentence-transformers
+transformers

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "How should employees secure corporate accounts?",
+    "expected_answer": "multi-factor authentication",
+    "answerable": true
+  },
+  {
+    "question": "What authentication method is required for corporate accounts?",
+    "expected_answer": "multi-factor authentication",
+    "answerable": true
+  },
+  {
+    "question": "What is the company vacation policy?",
+    "expected_answer": null,
+    "answerable": false
+  },
+  {
+    "question": "How many vacation days do employees receive?",
+    "expected_answer": null,
+    "answerable": false
+  }
+]
