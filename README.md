@@ -4,6 +4,8 @@
 
 It now ships as a complete interactive product: upload multiple PDF, Markdown, or text documents, query the combined evidence library, and inspect the exact passage behind every answer.
 
+**Live demo:** https://policylens-ai-7iq1.onrender.com ([API docs](https://policylens-ai-7iq1.onrender.com/docs)). It runs on Render's free tier, so the first request after a period of inactivity can take about a minute while the instance wakes up.
+
 ## Product experience
 
 - Polished responsive web workspace at `/`
