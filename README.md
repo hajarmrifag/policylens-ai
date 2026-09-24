@@ -162,7 +162,7 @@ docker run --rm -p 8000:8000 policylens-ai
 `render.yaml` defines a Docker web service with a `/health` check. Model weights are downloaded at image build time, and the container binds to Render's `$PORT`.
 
 1. In Render, choose **New > Blueprint** and select this repository.
-2. Use at least the Starter plan: PyTorch, MiniLM and FLAN-T5 exceed the 512 MB free-tier memory limit.
+2. The Free plan is enough: the image uses CPU-only PyTorch and is tuned to stay under 512 MB. Free instances spin down after inactivity, so the first request can take about a minute.
 3. Once the deploy is healthy, open the service URL for the workspace or `/docs` for the API.
 
 ## Tests

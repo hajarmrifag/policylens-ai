@@ -2,6 +2,6 @@ services:
   - type: web
     name: policylens-ai
     runtime: docker
-    plan: starter        # torch + MiniLM + FLAN-T5 need more than the 512 MB free tier
+    plan: free           # the image is tuned to fit the 512 MB free-tier limit
     healthCheckPath: /health
     autoDeploy: true
