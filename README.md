@@ -1,6 +1,17 @@
 # PolicyLens AI
 
-A grounded GenAI assistant for organisational documents with retrieval, citations, evaluation, and prompt-injection testing.
+**Answers you can actually audit.** PolicyLens is an evidence-first workspace that turns policy documents into grounded answers, confidence signals, and inspectable citations.
+
+It now ships as a complete interactive product: upload multiple PDF, Markdown, or text documents, query the combined evidence library, and inspect the exact passage behind every answer.
+
+## Product experience
+
+- Polished responsive web workspace at `/`
+- Drag-and-drop multi-document ingestion with an 8 MB safety limit
+- Cross-document semantic retrieval with document and chunk provenance
+- Grounded/refused status, top-match confidence, and query latency
+- Ephemeral in-memory uploads: no user documents are written to disk
+- Interactive OpenAPI documentation at `/docs`
 
 ## Social Impact & SDG Alignment
 
@@ -31,18 +42,19 @@ This direction also supports **SDG 9: Industry, Innovation and Infrastructure** 
 ## What it does
 
 - Loads PDF, Markdown, and text documents
+- Accepts multiple documents through the browser or API
 - Splits documents into overlapping chunks
 - Creates semantic embeddings with MiniLM
-- Retrieves the most relevant evidence for a question
+- Retrieves the most relevant evidence across the selected corpus
 - Generates grounded answers with FLAN-T5
-- Returns supporting source text and relevance scores
+- Returns source document, chunk, supporting text, and relevance score
 - Refuses unsupported questions using a relevance threshold
 - Evaluates answer correctness, refusal behaviour, latency, and adversarial prompts
 
 ## Architecture
 
 ```text
-Document
+Documents
    ↓
 Text extraction
    ↓
@@ -50,13 +62,13 @@ Chunking
    ↓
 MiniLM embeddings
    ↓
-Semantic retrieval
+Cross-document semantic retrieval
    ↓
 Relevant context
    ↓
 FLAN-T5
    ↓
-Grounded answer + sources
+Grounded answer + confidence + provenance
 ```
 
 ## Evaluation
@@ -81,7 +93,9 @@ Current result: **3 / 3 security cases passed**.
 ## API
 
 - `GET /health` — health check
-- `POST /query` — retrieve relevant document evidence
+- `GET /documents` — list documents in the evidence library
+- `POST /documents` — upload a PDF, Markdown, or text document
+- `POST /query` — retrieve relevant evidence with provenance
 - `POST /ask` — generate a grounded answer with sources
 
 Example request:
@@ -105,7 +119,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-Open `http://127.0.0.1:8000/docs`.
+Open `http://127.0.0.1:8000` for the product or `/docs` for the API.
 
 ## Docker
 
@@ -120,11 +134,11 @@ docker run --rm -p 8000:8000 policylens-ai
 python -m pytest -q
 ```
 
-The current suite contains **11 automated tests**. GitHub Actions runs the suite on pushes and pull requests.
+The suite covers retrieval, generation, citations, refusal behaviour, prompt injection, API health, document ingestion, and upload validation. GitHub Actions runs it on pushes and pull requests.
 
 ## Limitations
 
-PolicyLens AI is a portfolio and evaluation prototype, not a production knowledge system. The evaluation dataset and adversarial test set are intentionally small, and the relevance threshold would need calibration on a larger corpus before production use.
+PolicyLens AI is a portfolio and evaluation prototype, not a production knowledge system. The evaluation dataset and adversarial test set are intentionally small, the document registry is in-memory, and the relevance threshold would need calibration on a larger corpus before production use.
 
 ## Author
 

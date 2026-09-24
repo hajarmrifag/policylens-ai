@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 import numpy as np
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
@@ -7,8 +9,16 @@ from app.services.embeddings import embed_texts
 MODEL_NAME = "google/flan-t5-small"
 MIN_RELEVANCE = 0.35
 
-_tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-_model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
+@lru_cache(maxsize=1)
+def get_model_components():
+    """Load generation assets only when an answer is requested."""
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, local_files_only=True)
+        model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME, local_files_only=True)
+    except OSError:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+        model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
+    return tokenizer, model
 
 
 def generate_answer(question: str, context: str) -> str:
@@ -27,12 +37,13 @@ def generate_answer(question: str, context: str) -> str:
         "Answer:"
     )
 
-    inputs = _tokenizer(prompt, return_tensors="pt")
+    tokenizer, model = get_model_components()
+    inputs = tokenizer(prompt, return_tensors="pt")
 
-    outputs = _model.generate(
+    outputs = model.generate(
         **inputs,
         max_new_tokens=100,
         do_sample=False,
     )
 
-    return _tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+    return tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
