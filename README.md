@@ -51,6 +51,6 @@ The existing suite contains **18 automated tests** for retrieval, generation, ci
 
 [Product details, API routes and Docker](docs/product-guide.md) · [Evaluation questions](data/evals/questions.json) · [Generator](app/services/generator.py)
 
-**Scope:** a portfolio evaluation prototype. Partial evidence, version conflicts and adversarial prompts still produce failures. A held-out calibration set and stronger or extractive reader are the next experiments. The free live instance may need time to wake.
+**Scope:** a portfolio evaluation prototype. Partial evidence, version conflicts and adversarial prompts still produce failures. A held-out calibration set and stronger or extractive reader are the next experiments. The free live instance may need time to wake and currently displays earlier evaluation totals; use the linked raw results for the evaluation above.
 
 Built by **Hajar Mrifag**, Software Engineering student at Sichuan University.
