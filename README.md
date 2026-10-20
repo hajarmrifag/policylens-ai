@@ -8,7 +8,10 @@ A FastAPI workspace for questions over PDF, Markdown and text documents. MiniLM 
 
 ## What the evaluation revealed
 
-![Recorded evaluation: 10 of 11 supported questions, 6 of 6 unsupported, 3 of 4 misleading-premise, 3 of 4 prompt-injection, 0 of 3 partial-evidence, and 2 of 3 conflict cases passed. Total 24 of 31 on four synthetic documents.](docs/img/evaluation.svg)
+<picture>
+  <source media="(max-width: 600px)" srcset="docs/img/evaluation-mobile.svg">
+  <img src="docs/img/evaluation.svg" alt="Recorded evaluation: 10 of 11 supported questions, 6 of 6 unsupported, 3 of 4 misleading-premise, 3 of 4 prompt-injection, 0 of 3 partial-evidence, and 2 of 3 conflict cases passed. Total 24 of 31 on four synthetic documents.">
+</picture>
 
 Retrieval found the expected evidence in the top three for **15/15 evidence-bearing questions**, yet the full evaluation passed only **24/31**. Generation and answerability remained the weak links: **0/3 partial-evidence questions passed**, and one injected false premise was repeated.
 
